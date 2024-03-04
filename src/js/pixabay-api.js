@@ -1,8 +1,13 @@
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
+
+
+
 // ЗАПИТ,  1й then
 export function getImages(query) {
+    const loader = document.querySelector('.loader');
+    loader.style.display = 'flex';
     const KEY = '42503060-b2c3bebb5268fd59c195d07ac';
     const BASE_URL = 'https://pixabay.com/api/';
     const searchParams = new URLSearchParams({

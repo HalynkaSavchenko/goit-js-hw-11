@@ -20,7 +20,7 @@ const lightBox = new SimpleLightbox('.gallery a',
     captionPosition: 'top',
     showCounter: false,
   });
-
+loader.style.display = 'none';
 // Слухач на кнопку
 form.addEventListener('submit', onSearch);
 
