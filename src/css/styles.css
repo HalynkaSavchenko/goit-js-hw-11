@@ -113,9 +113,9 @@ height: 48px;
 background: #fff;
 }
 
-.modal-image {
-    width: 1112px;
-    height: 640px;   
-    margin-left: auto;
-    margin-right: auto;
+.info-item {
+  display: flex;
+  flex-direction: column;
+  width: 90px;
 }
+

@@ -1,42 +1,57 @@
 
-import SimpleLightbox from "simplelightbox";
-import "simplelightbox/dist/simple-lightbox.min.css";
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
-import { getImages } from "./js/pixabay-api.js";
-import { createMarkup } from "./js/render-functions.js";
+import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
 
-const form = document.querySelector(".search-form");
+import { getImages } from './js/pixabay-api';
+import { createMarkup } from './js/render-functions';
+
+const form = document.querySelector('.search-form');
 const gallery = document.querySelector('.gallery');
-let query;
-let basicLightbox;
+const loader = document.querySelector('.loader');
 
-const simpleLightBox = new SimpleLightbox('gallery-link', {
+// лайтбокс
+const lightBox = new SimpleLightbox('.gallery a',
+  {
     captionsData: 'alt',
     captionDelay: 250,
-});
+    captionPosition: 'top',
+    showCounter: false,
+  });
 
-form.addEventListener("submit", (event) => {
+// Слухач на кнопку
+form.addEventListener('submit', onSearch);
+
+// Функція обробки відповіді від сервера, 2 then
+function onSearch(event) {
     event.preventDefault();
-    gallery.innerHTML = ''
-    query = event.target.elements.search.value;
-
-    getImages(query).then(data => {
-        const markup = createMarkup(data);
-        gallery.insertAdjacentHTML('beforeend', markup); 
-        
-    }) 
-});
-
-gallery.addEventListener("click", (event) => {
-    event.preventDefault();
-    if (event.target === event.currentTarget) {
-        const imageUrl = '${el.webformatURL}';
-        basicLightbox = new SimpleLightbox(imageUrl, {
-            closeText: 'Закрити',
-        });
-        basicLightbox.show();
+    gallery.innerHTML = '';
+  const query = event.target.elements.search.value.trim();
+  if (query.length === 0) {
+    return iziToast.error({
+      message: 'Please, enter search value',
+       fontSize: 'large',
+       close: false,
+       position: 'topRight',
+       messageColor: 'white',
+       timeout: 2000,
+       backgroundColor: 'red'
+    })
     }
-});
+    getImages(query)
+        .then(data => {
+        const markup = createMarkup(data.hits);
+          gallery.insertAdjacentHTML('beforeend', markup); 
+          form.reset(); 
+          lightBox.refresh();
+    }) 
+        .catch(error => console.log(error))
+    }
+
+
+
 
 
 
