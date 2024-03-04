@@ -20,7 +20,7 @@ const lightBox = new SimpleLightbox('.gallery a',
     captionPosition: 'top',
     showCounter: false,
   });
-loader.style.display = 'none';
+
 // Слухач на кнопку
 form.addEventListener('submit', onSearch);
 
@@ -44,6 +44,7 @@ function onSearch(event) {
         .then(data => {
         const markup = createMarkup(data.hits);
           gallery.insertAdjacentHTML('beforeend', markup); 
+          loader.classList.add('is-hidden');
           form.reset(); 
           lightBox.refresh();
     }) 
