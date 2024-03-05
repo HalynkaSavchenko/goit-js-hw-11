@@ -40,15 +40,27 @@ function onSearch(event) {
        backgroundColor: 'red'
     })
     }
-    getImages(query)
-        .then(data => {
-        const markup = createMarkup(data.hits);
-          gallery.insertAdjacentHTML('beforeend', markup); 
-          loader.classList.add('is-hidden');
-          form.reset(); 
-          lightBox.refresh();
-    }) 
-        .catch(error => console.log(error))
+  getImages(query)
+    .then(data => {
+      const markup = createMarkup(data.hits);
+      gallery.insertAdjacentHTML('beforeend', markup);
+      form.reset();
+      lightBox.refresh();
+    })
+    .catch((error) => {
+    return iziToast.error({
+      message: 'Oops... something went wrong',
+       fontSize: 'large',
+       close: false,
+       position: 'topRight',
+       messageColor: 'white',
+       timeout: 2000,
+       backgroundColor: 'red'
+    })
+    })
+    
+    
+        .finally(()=>loader.classList.add('is-hidden'))
     }
 
 

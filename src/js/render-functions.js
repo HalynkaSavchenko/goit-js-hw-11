@@ -7,19 +7,19 @@ export function createMarkup(hits) {
         </a>
         <ul class = "container-info">
            <li class = "info-item">
-             <span>Likes:</span>
+             <span><b>Likes</b></span>
              <p>${likes}</p>
            </li>
            <li class = "info-item">
-             <span>Views:</span>
+             <span><b>Views</b></span>
              <p>${views}</p>
            </li>
            <li class = "info-item"i>
-             <span>Comments:</span>
+             <span><b>Comments</b></span>
              <p>${comments}</p>
            </li>
            <li class = "info-item">
-             <span>Downloads:</span>
+             <span><b>Downloads</b></span>
              <p>${downloads}</p>
            </li>
         </ul>
